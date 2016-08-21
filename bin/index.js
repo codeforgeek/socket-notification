@@ -24,7 +24,6 @@ router.get('/',function(req,res){
 router.get('/getStatus',function(req,res){
 	pool.getConnection(function(err,connection){
 		if(err) {
-			connection.release();
 			return res.json({"error" : true,"message" : "Error in database."});
 		} else {
 			var sqlQuery = "SELECT * FROM ??";
@@ -64,7 +63,6 @@ var addComment = function(user,comment,callback) {
 	var self = this;
 	pool.getConnection(function(err,connection){
 		if(err) {
-			connection.release();
 			return callback(true,null);
 		} else {
 			var sqlQuery = "INSERT into ?? (??,??,??) VALUES ((SELECT ?? FROM ?? WHERE ?? = ?),?,?)";
